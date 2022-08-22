@@ -181,9 +181,36 @@ class Hook {
     private fun showDialog() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS")
-            setMessage("To connect with us please select server region and for official servers use Custom Server with blank input, fill in if you want to connect to another server. info: discord.yuuki.me")
+            setTitle("Welcome to YuukiPS | Clone by ElaXan")
+            setMessage("Click on Yuuki Server for join Server Yuuki (SG, EU)\nClick on Localhost if you want play on Localhost\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
 
+
+            // TODO: add patch metadata
+            // TODO: remove patch metadata
+
+            // Yuuki
+            
+            setNegativeButton("Custom Server") { _, _ ->
+                CustomServer()
+            }
+            setPositiveButton("Yuuki Server") { _, _ ->
+                showYuukiServer()
+            }
+            setNeutralButton("Localhost") { _, _ ->
+                server = "https://127.0.0.1:54321"
+                hook()
+                Toast.makeText(activity, "You enter to Localhost (GCAndroid) Port : 54321", Toast.LENGTH_LONG).show()
+                //activity.finish() // use this to close?                
+            }
+
+        }.show()
+    }
+    
+    private fun CustomServer() {
+        AlertDialog.Builder(activity).apply {
+            setCancelable(false)
+            setTitle("Welcome to YuukiPS | Clone by ElaXan")
+            setMessage("Enter address/domain without https:// or http://\nExample : sg.game.yuuki.me\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
             setView(ScrollView(context).apply {
 
             addView(EditText(activity).apply {
@@ -200,32 +227,54 @@ class Hook {
             })
             
             })
+            
+            setNegativeButton("Enter Custom Server") { _, _ ->
+                if (server != ""){
+                    server = "https://${server}"
+                    hook()
+                    Toast.makeText(activity, "You are currently connected to server: "+server, Toast.LENGTH_LONG).show()
+                }else{
+                    CustomServer()
+                    Toast.makeText(activity, "Please set address/domain", Toast.LENGTH_LONG).show()
+                }
+            }
+            setNeutralButton("Back") { _, _ ->
+                showDialog()
+                //activity.finish() // use this to close?                
+            }
+
+        }.show()
+
+    }
+    
+    private fun showYuukiServer() {
+        AlertDialog.Builder(activity).apply {
+            setCancelable(false)
+            setTitle("Welcome to YuukiPS | Clone by ElaXan")
+            setMessage("To connect with us please select server region\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
+
 
             // TODO: add patch metadata
             // TODO: remove patch metadata
 
             // Yuuki
             setNegativeButton("Singapore") { _, _ ->
-                server = "https://sg.game.yuuki.me"
+                server = "https://sg.genshin.ps.yuuki.me"
                 hook()
                 Toast.makeText(activity, "Welcome to Singapore Region", Toast.LENGTH_LONG).show()
             }
-            setPositiveButton("German") { _, _ ->
-                server = "https://de.game.yuuki.me"
+            setPositiveButton("Europe") { _, _ ->
+                server = "https://eu.genshin.ps.yuuki.me"
                 hook()
-                Toast.makeText(activity, "Welcome to German Region", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Welcome to Europe Region", Toast.LENGTH_LONG).show()
             }
-            setNeutralButton("Custom Server") { _, _ ->                
-                if (server != ""){
-                    hook()
-                    Toast.makeText(activity, "You are currently connected to server: "+server, Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(activity, "You are currently connected to an official server, use it to download data only.", Toast.LENGTH_LONG).show()
-                }
+            setNeutralButton("Back") { _, _ ->
+                showDialog()
                 //activity.finish() // use this to close?                
             }
 
         }.show()
+    
     }
 
     inner class MoveOnTouchListener : View.OnTouchListener {
