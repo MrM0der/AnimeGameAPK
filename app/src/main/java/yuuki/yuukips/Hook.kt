@@ -119,11 +119,12 @@ class Hook {
     @SuppressLint("WrongConstant", "ClickableViewAccessibility")
     fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if ((lpparam.packageName == "com.miHoYo.GenshinImpact") || (lpparam.packageName == "com.miHoYo.GenshinImpactzex")) {
-            // Continue???
+            // Continue ???
         } else {
             return
         }
-
+        
+       
         EzXHelperInit.initHandleLoadPackage(lpparam)
 
         findMethod(Activity::class.java, true) { name == "onCreate" }.hookBefore { param ->
@@ -234,9 +235,12 @@ class Hook {
                 if (server == "") {
                     server = "https://127.0.0.1:54321"
                     hook()
-                    Toast.makeText(activity, "Welcome to Localhost with port 54321", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Entering Localhost with port 54321", Toast.LENGTH_LONG).show()
+                } else if ("${server}" <= "1024") {
+                    Toast.makeText(activity, "Port ${server} not allowed for Android\nTry higher than 1024", Toast.LENGTH_LONG).show()
+                    LocalHost()
                 } else {
-                    Toast.makeText(activity, "Welcome to Localhost with port "+server, Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Entering Localhost with port ${server}", Toast.LENGTH_LONG).show()
                     server = "https://127.0.0.1:${server}"
                     hook()
                 }
@@ -272,9 +276,9 @@ class Hook {
             
             setNegativeButton("Enter Custom Server") { _, _ ->
                 if (server != ""){
+                    Toast.makeText(activity, "You are currently connected to server: "+server, Toast.LENGTH_LONG).show()
                     server = "https://${server}"
                     hook()
-                    Toast.makeText(activity, "You are currently connected to server: "+server, Toast.LENGTH_LONG).show()
                 }else{
                     CustomServer()
                     Toast.makeText(activity, "Please set address/domain", Toast.LENGTH_LONG).show()
@@ -318,6 +322,7 @@ class Hook {
         }.show()
     
     }
+
 
     inner class MoveOnTouchListener : View.OnTouchListener {
         private var originalXPos = 0
