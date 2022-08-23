@@ -2,5 +2,6 @@
 <resources>
     <array name="need_module">
         <item>com.miHoYo.GenshinImpact</item>
+        <item>com.miHoYo.GenshinImpactzex</item>
     </array>
 </resources>
