@@ -45,9 +45,11 @@ import javax.net.ssl.*
 import kotlin.system.exitProcess
 
 class Hook {
-    private val regex = Pattern.compile("http(s|)://.*?\\.(hoyoverse|mihoyo|yuanshen|mob)\\.com")
+    private val regex = Pattern.compile("http(s|)://.*?\\.(hoyoverse|mihoyo|yuanshen|mob|gptzfx)\\.com")
 
     private lateinit var server: String
+
+    private lateinit var portSet: String
 
     private lateinit var modulePath: String
     private lateinit var moduleRes: XModuleResources
@@ -118,7 +120,7 @@ class Hook {
 
     @SuppressLint("WrongConstant", "ClickableViewAccessibility")
     fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        if ((lpparam.packageName == "com.miHoYo.GenshinImpact") || (lpparam.packageName == "com.miHoYo.GenshinImpactzex")) {
+        if ((lpparam.packageName == "com.miHoYo.GenshinImpact") || (lpparam.packageName == "com.miHoYo.GenshinImpactzex") || (lpparam.packageName == "com.miHoYo.GenshinImpact.Proxy")) {
             // Continue ???
         } else {
             return
@@ -186,8 +188,8 @@ class Hook {
     private fun showDialog() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Mod by ElaXan")
-            setMessage("Click on Yuuki Server for join Server Yuuki (SG, EU)\nClick on Localhost if you want play on Localhost\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
+            setTitle("Welcome to YuukiPS | Z3RO")
+            setMessage("Click on Yuuki Server for join Server Yuuki\nClick on Localhost if you want play on Localhost\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
 
 
             // TODO: add patch metadata
@@ -212,7 +214,7 @@ class Hook {
     private fun LocalHost() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Mod by ElaXan")
+            setTitle("Welcome to YuukiPS | Z3RO")
             setMessage("Enter Port\nleave blank for using default port (54321)")
             setView(ScrollView(context).apply {
 
@@ -236,9 +238,6 @@ class Hook {
                     server = "https://127.0.0.1:54321"
                     hook()
                     Toast.makeText(activity, "Entering Localhost with port 54321", Toast.LENGTH_LONG).show()
-                } else if ("${server}" <= "1024") {
-                    Toast.makeText(activity, "Port ${server} not allowed for Android\nTry higher than 1024", Toast.LENGTH_LONG).show()
-                    LocalHost()
                 } else {
                     Toast.makeText(activity, "Entering Localhost with port ${server}", Toast.LENGTH_LONG).show()
                     server = "https://127.0.0.1:${server}"
@@ -255,8 +254,8 @@ class Hook {
     private fun CustomServer() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Mod by ElaXan")
-            setMessage("Enter address/domain without https:// or http://\nExample : sg.game.yuuki.me\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
+            setTitle("Welcome to YuukiPS | Z3RO")
+            setMessage("Enter address/domain without https:// or http://\nExample : sg.game.yuuki.me\n\ninfo: discord.yuuki.me")
             setView(ScrollView(context).apply {
 
             addView(EditText(activity).apply {
@@ -274,14 +273,12 @@ class Hook {
             
             })
             
-            setNegativeButton("Enter Custom Server") { _, _ ->
-                if (server != ""){
-                    Toast.makeText(activity, "You are currently connected to server: "+server, Toast.LENGTH_LONG).show()
-                    server = "https://${server}"
-                    hook()
-                }else{
+            setNegativeButton("Continue") { _, _ ->
+                if (server == "") {
+                    Toast.makeText(activity, "Please enter Address", Toast.LENGTH_LONG).show()
                     CustomServer()
-                    Toast.makeText(activity, "Please set address/domain", Toast.LENGTH_LONG).show()
+                } else {
+                    CustomServer_Port()
                 }
             }
             setNeutralButton("Back") { _, _ ->
@@ -293,26 +290,39 @@ class Hook {
 
     }
     
-    private fun showYuukiServer() {
+    private fun CustomServer_Port() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Mod by ElaXan")
-            setMessage("To connect with us please select server region\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
+            setTitle("Welcome to YuukiPS | Z3RO")
+            setMessage("Set Port\nLeave blank for using default Port\n\ninfo: discord.yuuki.me")
+            setView(ScrollView(context).apply {
 
-
-            // TODO: add patch metadata
-            // TODO: remove patch metadata
-
-            // Yuuki
-            setNegativeButton("Singapore") { _, _ ->
-                server = "https://sg.genshin.ps.yuuki.me"
-                hook()
-                Toast.makeText(activity, "Welcome to Singapore Region", Toast.LENGTH_LONG).show()
-            }
-            setPositiveButton("Europe") { _, _ ->
-                server = "https://eu.genshin.ps.yuuki.me"
-                hook()
-                Toast.makeText(activity, "Welcome to Europe Region", Toast.LENGTH_LONG).show()
+            addView(EditText(activity).apply {
+                val str = ""
+                portSet = ""
+                setText(str.toCharArray(), 0, str.length)
+                addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                    override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                    @SuppressLint("CommitPrefEdits")
+                    override fun afterTextChanged(p0: Editable) {
+                        portSet = p0.toString()
+                    }
+                })
+            })
+            
+            })
+            
+            setPositiveButton("Enter Custom Server") { _, _ ->
+                if (portSet != "") {
+                    Toast.makeText(activity, "Entering ${server} with Port ${portSet}", Toast.LENGTH_LONG).show()
+                    server = "https://${server}:${portSet}"
+                    hook()
+                } else {
+                    Toast.makeText(activity, "Entering ${server} with Default Port", Toast.LENGTH_LONG).show()
+                    server = "https://${server}"
+                    hook()
+                }
             }
             setNeutralButton("Back") { _, _ ->
                 showDialog()
@@ -320,7 +330,11 @@ class Hook {
             }
 
         }.show()
+    }
     
+    private fun showYuukiServer() {
+        server = "https://genshin.ps.yuuki.me"
+        hook()
     }
 
 
