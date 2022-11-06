@@ -255,7 +255,7 @@ class Hook {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
             setTitle("Welcome to YuukiPS | Z3RO")
-            setMessage("Enter address/domain without https:// or http://\nExample : sg.game.yuuki.me\n\ninfo: discord.yuuki.me")
+            setMessage("Enter address/domain without https:// or http://\nExample : genshin.ps.yuuki.me\nLeave Blank for join Official Server\n\ninfo: discord.yuuki.me")
             setView(ScrollView(context).apply {
 
             addView(EditText(activity).apply {
@@ -275,8 +275,8 @@ class Hook {
             
             setNegativeButton("Continue") { _, _ ->
                 if (server == "") {
-                    Toast.makeText(activity, "Please enter Address", Toast.LENGTH_LONG).show()
-                    CustomServer()
+                    hook()
+                    Toast.makeText(activity, "Entering Official Server", Toast.LENGTH_LONG).show()
                 } else {
                     CustomServer_Port()
                 }
