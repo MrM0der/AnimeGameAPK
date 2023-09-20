@@ -188,7 +188,7 @@ class Hook {
     private fun showDialog() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Z3RO")
+            setTitle("Добро пожаловать в Genshin Impact Offline")
             setMessage("Click on Yuuki Server for join Server Yuuki\nClick on Localhost if you want play on Localhost\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
 
 
@@ -316,11 +316,11 @@ class Hook {
             setPositiveButton("Enter Custom Server") { _, _ ->
                 if (portSet != "") {
                     Toast.makeText(activity, "Entering ${server} with Port ${portSet}", Toast.LENGTH_LONG).show()
-                    server = "https://${server}:${portSet}"
+                    server = "http://${server}:${portSet}"
                     hook()
                 } else {
                     Toast.makeText(activity, "Entering ${server} with Default Port", Toast.LENGTH_LONG).show()
-                    server = "https://${server}"
+                    server = "http://${server}"
                     hook()
                 }
             }
@@ -333,7 +333,7 @@ class Hook {
     }
     
     private fun showYuukiServer() {
-        server = "https://genshin.ps.yuuki.me"
+        server = "https://ps.yuuki.me"
         hook()
     }
 
