@@ -7,7 +7,7 @@ on:
       repository:
         description: "Git repository URL"
         required: true
-        default: "https://github.com/MrM0der/Yuuki-Android-Launcher_main"
+        default: "https://github.com/MrM0der/AnimeGameAPK"
       jdkVersion:
         description: "OpenJDK version to use: 8 / 11 / 17 etc."
         required: false
