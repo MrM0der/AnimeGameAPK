@@ -255,7 +255,7 @@ class Hook {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
             setTitle("Добро пожаловать в Genshin Impact Offline")
-            setMessage("Enter address/domain without https:// or http://\nExample : genshin.ps.yuuki.me\nLeave Blank for join Official Server\n\ninfo: discord.yuuki.me")
+            setMessage("Enter address/domain WITH https:// or http://\nExample : http://8.8.8.8\nDo not enter the port!\nDO NOT ENTER!")
             setView(ScrollView(context).apply {
 
             addView(EditText(activity).apply {
@@ -316,11 +316,11 @@ class Hook {
             setPositiveButton("Enter Custom Server") { _, _ ->
                 if (portSet != "") {
                     Toast.makeText(activity, "Entering ${server} with Port ${portSet}", Toast.LENGTH_LONG).show()
-                    server = "http://${server}:${portSet}"
+                    server = "${server}:${portSet}"
                     hook()
                 } else {
                     Toast.makeText(activity, "Entering ${server} with Default Port", Toast.LENGTH_LONG).show()
-                    server = "http://${server}"
+                    server = "${server}"
                     hook()
                 }
             }
