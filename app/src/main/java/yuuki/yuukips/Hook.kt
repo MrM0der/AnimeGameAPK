@@ -214,7 +214,7 @@ class Hook {
     private fun LocalHost() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Z3RO")
+            setTitle("Добро пожаловать в Genshin Impact Offline")
             setMessage("Enter Port\nleave blank for using default port (54321)")
             setView(ScrollView(context).apply {
 
@@ -254,7 +254,7 @@ class Hook {
     private fun CustomServer() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Z3RO")
+            setTitle("Добро пожаловать в Genshin Impact Offline")
             setMessage("Enter address/domain without https:// or http://\nExample : genshin.ps.yuuki.me\nLeave Blank for join Official Server\n\ninfo: discord.yuuki.me")
             setView(ScrollView(context).apply {
 
@@ -293,7 +293,7 @@ class Hook {
     private fun CustomServer_Port() {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
-            setTitle("Welcome to YuukiPS | Z3RO")
+            setTitle("Добро пожаловать в Genshin Impact Offline")
             setMessage("Set Port\nLeave blank for using default Port\n\ninfo: discord.yuuki.me")
             setView(ScrollView(context).apply {
 
