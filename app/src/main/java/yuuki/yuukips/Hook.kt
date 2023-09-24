@@ -294,7 +294,7 @@ class Hook {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
             setTitle("Добро пожаловать в Genshin Impact Offline")
-            setMessage("Set Port\nLeave blank for using default Port\n\ninfo: discord.yuuki.me")
+            setMessage("Set Port\nLeave blank for using default Port")
             setView(ScrollView(context).apply {
 
             addView(EditText(activity).apply {
