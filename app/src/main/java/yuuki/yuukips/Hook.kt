@@ -189,7 +189,7 @@ class Hook {
         AlertDialog.Builder(activity).apply {
             setCancelable(false)
             setTitle("Добро пожаловать в Genshin Impact Offline")
-            setMessage("Click on Yuuki Server for join Server Yuuki\nClick on Localhost if you want play on Localhost\n\ninfo: discord.yuuki.me\nInfo Localhost : https://github.com/ElaXan/GCAndroid")
+            setMessage("Click on Yuuki Server for join Server Yuuki\nClick on Localhost if you want play on Localhost\n\nThis module was modified by MrModer (discord: mrmoder)\nWith love from Russia 🇷🇺")
 
 
             // TODO: add patch metadata
