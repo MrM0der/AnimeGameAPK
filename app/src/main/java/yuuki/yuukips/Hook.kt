@@ -45,7 +45,7 @@ import javax.net.ssl.*
 import kotlin.system.exitProcess
 
 class Hook {
-    private val regex = Pattern.compile("http(s|)://.*?\\.(hoyoverse|mihoyo|yuanshen|mob|gptzfx)\\.com")
+    private val regex = Pattern.compile("http(s|)://.*?\\.(hoyoverse|mihoyo|yuanshen|mob|gptzfx|jp|api|fc|m|data|graph|facebook|devs|fd|hk4e-sdk-os)\\.com")
 
     private lateinit var server: String
 
