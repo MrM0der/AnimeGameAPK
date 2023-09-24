@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YuukiPS</string>
+    <string name="app_name">Genshin Impact Offline</string>
     <string name="CustomServer">Custom server</string>
     <string name="OfficialServer">Official server</string>
     <string name="SelectServer">Welcome to YuukiPS</string>
