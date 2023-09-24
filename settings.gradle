@@ -7,5 +7,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "YuukiPS"
+rootProject.name = "Genshin Impact Offline"
 include ':app'
