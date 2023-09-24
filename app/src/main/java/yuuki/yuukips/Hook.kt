@@ -197,13 +197,13 @@ class Hook {
 
             // Yuuki
             
-            setNegativeButton("Custom Server") { _, _ ->
+            setNegativeButton("Custom Server (HTTP/HTTPS)") { _, _ ->
                 CustomServer()
             }
             setPositiveButton("Yuuki Server") { _, _ ->
                 showYuukiServer()
             }
-            setNeutralButton("Localhost") { _, _ ->
+            setNeutralButton("Localhost (HTTP)") { _, _ ->
                 LocalHost()
                 //activity.finish() // use this to close?                
             }
@@ -235,12 +235,12 @@ class Hook {
             // Yuuki
             setPositiveButton("Enter Localhost") { _, _ ->
                 if (server == "") {
-                    server = "https://127.0.0.1:54321"
+                    server = "http://127.0.0.1:54321"
                     hook()
                     Toast.makeText(activity, "Entering Localhost with port 54321", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(activity, "Entering Localhost with port ${server}", Toast.LENGTH_LONG).show()
-                    server = "https://127.0.0.1:${server}"
+                    server = "http://127.0.0.1:${server}"
                     hook()
                 }
             }
