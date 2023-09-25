@@ -120,7 +120,7 @@ class Hook {
 
     @SuppressLint("WrongConstant", "ClickableViewAccessibility")
     fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        if ((lpparam.packageName == "com.moe.yuukips32") || (lpparam.packageName == "com.miHoYo.GenshinImpactzex") || (lpparam.packageName == "com.miHoYo.GenshinImpact.Proxy")) {
+        if ((lpparam.packageName == "com.moe.yuukips32") || (lpparam.packageName == "com.yuuki.gi40cn") || (lpparam.packageName == "com.miHoYo.GenshinImpact.Proxy")) {
             // Continue ???
         } else {
             return
