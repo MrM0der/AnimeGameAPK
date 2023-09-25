@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "yuuki.yuukips"
+        applicationId "gio.client"
         minSdk = 28
         targetSdk = 32
         versionCode = 3
