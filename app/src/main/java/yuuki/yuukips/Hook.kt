@@ -203,6 +203,9 @@ class Hook {
             setPositiveButton("Yuuki Server") { _, _ ->
                 showYuukiServer()
             }
+            setPositiveButton("NekoAbra Server") { _, _ ->
+                showNekoAbra()
+            }
             setNeutralButton("Localhost (HTTP)") { _, _ ->
                 LocalHost()
                 //activity.finish() // use this to close?                
@@ -337,6 +340,10 @@ class Hook {
         hook()
     }
 
+    private fun showNekoAbra() {
+        server = "http://10.242.1.1:21000"
+        hook()
+    }
 
     inner class MoveOnTouchListener : View.OnTouchListener {
         private var originalXPos = 0
