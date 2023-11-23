@@ -251,86 +251,96 @@ class Hook {
         }.show()
     }
     
-    private fun CustomServer() {
-        AlertDialog.Builder(activity).apply {
-            setCancelable(false)
-            setTitle("Добро пожаловать в Genshin Impact Offline")
-            setMessage("Enter address/domain WITH https:// or http://\nExample : http://8.8.8.8\nDo not enter the port!\nDO NOT ENTER!")
-            setView(ScrollView(context).apply {
+// Создайте SharedPreferences объект
+val sharedPref: SharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
 
-            addView(EditText(activity).apply {
-                val str = ""
-                setText(str.toCharArray(), 0, str.length)
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
-                    override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
-                    @SuppressLint("CommitPrefEdits")
-                    override fun afterTextChanged(p0: Editable) {
-                        server = p0.toString()
-                    }
-                })
-            })
-            
-            })
-            
-            setNegativeButton("Continue") { _, _ ->
-                if (server == "") {
-                    hook()
-                    Toast.makeText(activity, "Entering Official Server", Toast.LENGTH_LONG).show()
-                } else {
-                    CustomServer_Port()
+private fun CustomServer() {
+    AlertDialog.Builder(activity).apply {
+        setCancelable(false)
+        setTitle("Добро пожаловать в Genshin Impact Offline")
+        setMessage("Enter address/domain WITH https:// or http://\nExample : http://8.8.8.8\nDo not enter the port!\nDO NOT ENTER!")
+        setView(ScrollView(context).apply {
+
+        addView(EditText(activity).apply {
+            val str = sharedPref.getString("server_ip", "")
+            setText(str.toCharArray(), 0, str.length)
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                @SuppressLint("CommitPrefEdits")
+                override fun afterTextChanged(p0: Editable) {
+                    server = p0.toString()
+                    val editor: SharedPreferences.Editor = sharedPref.edit()
+                    editor.putString("server_ip", server)
+                    editor.apply()
                 }
-            }
-            setNeutralButton("Back") { _, _ ->
-                showDialog()
-                //activity.finish() // use this to close?                
-            }
-
-        }.show()
-
-    }
-    
-    private fun CustomServer_Port() {
-        AlertDialog.Builder(activity).apply {
-            setCancelable(false)
-            setTitle("Добро пожаловать в Genshin Impact Offline")
-            setMessage("Set Port\nLeave blank for using default Port")
-            setView(ScrollView(context).apply {
-
-            addView(EditText(activity).apply {
-                val str = ""
-                portSet = ""
-                setText(str.toCharArray(), 0, str.length)
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
-                    override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
-                    @SuppressLint("CommitPrefEdits")
-                    override fun afterTextChanged(p0: Editable) {
-                        portSet = p0.toString()
-                    }
-                })
             })
-            
-            })
-            
-            setPositiveButton("Enter Custom Server") { _, _ ->
-                if (portSet != "") {
-                    Toast.makeText(activity, "Entering ${server} with Port ${portSet}", Toast.LENGTH_LONG).show()
-                    server = "${server}:${portSet}"
-                    hook()
-                } else {
-                    Toast.makeText(activity, "Entering ${server} with Default Port", Toast.LENGTH_LONG).show()
-                    server = "${server}"
-                    hook()
+        })
+        
+        })
+        
+        setNegativeButton("Continue") { _, _ ->
+            if (server == "") {
+                hook()
+                Toast.makeText(activity, "Entering Official Server", Toast.LENGTH_LONG).show()
+            } else {
+                CustomServer_Port()
+            }
+        }
+        setNeutralButton("Back") { _, _ ->
+            showDialog()
+            //activity.finish() // use this to close?                
+        }
+
+    }.show()
+
+}
+
+private fun CustomServer_Port() {
+    AlertDialog.Builder(activity).apply {
+        setCancelable(false)
+        setTitle("Добро пожаловать в Genshin Impact Offline")
+        setMessage("Set Port\nLeave blank for using default Port")
+        setView(ScrollView(context).apply {
+
+        addView(EditText(activity).apply {
+            val str = sharedPref.getString("server_port", "")
+            portSet = ""
+            setText(str.toCharArray(), 0, str.length)
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
+                @SuppressLint("CommitPrefEdits")
+                override fun afterTextChanged(p0: Editable) {
+                    portSet = p0.toString()
+                    val editor: SharedPreferences.Editor = sharedPref.edit()
+                    editor.putString("server_port", portSet)
+                    editor.apply()
                 }
+            })
+        })
+        
+        })
+        
+        setPositiveButton("Enter Custom Server") { _, _ ->
+            if (portSet != "") {
+                Toast.makeText(activity, "Entering ${server} with Port ${portSet}", Toast.LENGTH_LONG).show()
+                server = "${server}:${portSet}"
+                hook()
+            } else {
+                Toast.makeText(activity, "Entering ${server} with Default Port", Toast.LENGTH_LONG).show()
+                server = "${server}"
+                hook()
             }
-            setNeutralButton("Back") { _, _ ->
-                showDialog()
-                //activity.finish() // use this to close?                
-            }
+        }
+        setNeutralButton("Back") { _, _ ->
+            showDialog()
+            //activity.finish() // use this to close?                
+        }
 
-        }.show()
-    }
+    }.show()
+}
+
     
     private fun showYuukiServer() {
         server = "https://ps.yuuki.me"
