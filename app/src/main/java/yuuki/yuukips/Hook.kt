@@ -203,9 +203,6 @@ class Hook {
             setPositiveButton("Yuuki Server") { _, _ ->
                 showYuukiServer()
             }
-            setPositiveButton("NekoAbra Server") { _, _ ->
-                showNekoAbra()
-            }
             setNeutralButton("Localhost (HTTP)") { _, _ ->
                 LocalHost()
                 //activity.finish() // use this to close?                
@@ -288,6 +285,10 @@ class Hook {
                 showDialog()
                 //activity.finish() // use this to close?                
             }
+            setPositiveButton("💖") { _, _ ->
+                showNekoAbra()
+                hook()
+                Toast.makeText(activity, "Добро пожаловать на NekoAbraGIO!💖", Toast.LENGTH_LONG).show()
 
         }.show()
 
@@ -331,6 +332,7 @@ class Hook {
                 showDialog()
                 //activity.finish() // use this to close?                
             }
+            
 
         }.show()
     }
