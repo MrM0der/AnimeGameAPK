@@ -289,6 +289,7 @@ class Hook {
                 showNekoAbra()
                 hook()
                 Toast.makeText(activity, "Добро пожаловать на NekoAbraGIO!💖", Toast.LENGTH_LONG).show()
+            }
 
         }.show()
 
