@@ -203,7 +203,7 @@ class Hook {
             setPositiveButton("Yuuki Server") { _, _ ->
                 showYuukiServer()
             }
-            setPositiveButton("NekoAbra Server") { _, _ ->
+            setNeutralButton("NekoAbra Server") { _, _ ->
                 showNekoAbra()
             }
             setNeutralButton("Localhost (HTTP)") { _, _ ->
