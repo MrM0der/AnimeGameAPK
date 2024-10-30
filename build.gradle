@@ -9,12 +9,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        maven { url "https://archiva.interlocsolutions.com/archiva/repository/internal" }
-    }
-}
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir
