@@ -52,8 +52,10 @@ android {
 }
 
 repositories {
-    jcenter()
+    google()
+    mavenCentral()
 }
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["lib*.so"])
