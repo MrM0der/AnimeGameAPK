@@ -51,6 +51,10 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["lib*.so"])
     compileOnly 'de.robv.android.xposed:api:82'
