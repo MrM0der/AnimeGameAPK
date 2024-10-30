@@ -14,13 +14,6 @@ allprojects {
         maven {
             url "https://archiva.interlocsolutions.com/archiva/repository/internal"
         }
-        google()
-        mavenCentral()
-        maven { 
-            url 'https://jitpack.io'
-        }
-        jcenter() // Required for Xposed
-    }
 }
 
 task clean(type: Delete) {
