@@ -51,12 +51,6 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url 'https://web.archive.org/web/20240907130722/https://archiva.interlocsolutions.com/archiva/repository/internal'
-    }
-}
-
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["lib*.so"])
